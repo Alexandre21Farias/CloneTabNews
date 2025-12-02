@@ -1,3 +1,3 @@
 export default function Home() {
-    return <h1>Yunaaaa eu te amoooo</h1>
+    return <h1>EU TE AMO MINHA MONDRONGUINHA</h1>
 }
