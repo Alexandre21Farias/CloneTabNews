@@ -1,0 +1,5 @@
+services:
+  database:
+    image: "postgres:18.1-alpine3.23"
+    environment:
+      POSTGRES_PASSWORD: "local_password"
