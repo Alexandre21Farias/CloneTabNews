@@ -22,7 +22,7 @@ export default async function migrations(request, response) {
     };
     if (request.method === "GET") {
       const pendingMigrations = await migrationsRunner(
-        defaultMigrationsOptions
+        defaultMigrationsOptions,
       );
       return response.status(200).json(pendingMigrations);
     }
