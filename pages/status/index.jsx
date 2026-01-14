@@ -9,7 +9,6 @@ export default function StatusPage() {
     refreshInterval: 2000,
   });
   if (error) return <p>Erro ao carregar status</p>;
-  if (isLoading) return <p>Carregando...</p>;
 
   return (
     <>
@@ -21,27 +20,29 @@ export default function StatusPage() {
 }
 
 function UpdatedAt({ data, isLoading }) {
-  if (isLoading) return <p>Carregando...</p>;
+  const updatedAt = new Date(data?.update_at).toLocaleString("pt-BR");
 
-  const updatedAt = new Date(data.update_at).toLocaleString("pt-BR");
-
-  return <p>Atualizado em: {updatedAt}</p>;
+  return <p>Atualizado em: {isLoading ? "Carregando..." : updatedAt}</p>;
 }
 
 function DependenciasStatus({ data, isLoading }) {
-  if (isLoading) return <p>Carregando...</p>;
-
-  const dependencias = data.dependencies;
+  const dependencias = data?.dependencies;
   console.log(dependencias);
   return (
     <div>
-      <ul>
-        {Object.entries(dependencias).map(([nome, valor]) => (
-          <li key={nome}>
-            <strong>{nome}</strong>: {valor}
-          </li>
-        ))}
-      </ul>
+      <h2>Dependências</h2>
+
+      {isLoading ? (
+        "Carregando..."
+      ) : (
+        <ul>
+          {Object.entries(dependencias).map(([nome, valor]) => (
+            <li key={nome}>
+              <strong>{nome}</strong>: {valor}
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 }
