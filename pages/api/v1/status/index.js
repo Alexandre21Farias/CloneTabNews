@@ -29,11 +29,15 @@ async function getHandler(request, response) {
     databaseOpenedConnectionsResult.rows[0].count;
 
   response.status(200).json({
+    update_at: updatedAt,
     updated_at: updatedAt,
     dependencies: {
+      version: databaseVersionValue,
+      max_connections: databaseMaxConnectionsValue,
+      database_connections: databaseOpenedConnectionsValue,
       database: {
         version: databaseVersionValue,
-        max_connections: parseInt(databaseMaxConnectionsValue),
+        max_connections: databaseMaxConnectionsValue,
         opened_connections: databaseOpenedConnectionsValue,
       },
     },
