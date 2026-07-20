@@ -1,10 +1,11 @@
 import retry from "async-retry";
 import database from "infra/database";
+import migrator from "infra/migrator";
 
 async function waitForAllServices() {
-  await weitForWebServer();
+  await waitForWebServer();
 
-  async function weitForWebServer() {
+  async function waitForWebServer() {
     return retry(fetchStatusPage, { retries: 100, maxTimeout: 1000 });
 
     async function fetchStatusPage() {
@@ -18,9 +19,15 @@ async function waitForAllServices() {
 async function clearDatabase() {
   await database.query("drop schema public cascade; create schema public");
 }
+
+async function runPendingMigrations() {
+  await migrator.runPendingMigrations();
+}
+
 const ocherstrator = {
   waitForAllServices,
   clearDatabase,
+  runPendingMigrations,
 };
 
 export default ocherstrator;
