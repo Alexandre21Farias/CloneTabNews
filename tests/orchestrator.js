@@ -1,6 +1,6 @@
 import retry from "async-retry";
 import database from "../infra/database.js";
-import migrator from "../infra/migrator.js";
+import migrator from "../models/migrator.js";
 
 let resolvedBaseUrl = null;
 let originalFetch = global.fetch;
