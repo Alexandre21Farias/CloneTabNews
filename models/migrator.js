@@ -1,10 +1,15 @@
 import migrationRunner from "node-pg-migrate";
-import { resolve } from "node:path";
-import database from "infra/database.js";
+import { dirname, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
+import database from "../infra/database.js";
+
+const currentFilePath = fileURLToPath(import.meta.url);
+const currentDirectory = dirname(currentFilePath);
+const projectRoot = resolve(currentDirectory, "..");
 
 const defaultMigrationOptions = {
   dryRun: true,
-  dir: resolve("infra", "migrations"),
+  dir: resolve(projectRoot, "infra", "migrations"),
   direction: "up",
   log: () => {},
   migrationsTable: "pgmigrations",
